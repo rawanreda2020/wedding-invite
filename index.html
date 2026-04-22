@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Countdown</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: #2a0d14; /* ?? »—Ã‰œÌ €«„ﬁ */
+    font-family: Arial;
+}
+
+/* «·’›Õ… «·√Ê·Ï */
+#home {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1a060a; /* √€„ﬁ */
+    cursor: pointer;
+}
+
+#home img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: 1s;
+}
+
+#home.fade-out img {
+    opacity: 0;
+    filter: blur(20px);
+}
+
+/* «·’›Õ… «· «‰Ì… */
+#content {
+    display: none;
+}
+
+/* «·”ﬂ‘‰ «·√Ê· */
+.image-container {
+    width: 100%;
+    height: 100vh;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(10px);
+    transition: 1.2s ease;
+}
+
+.image-container img.show {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+}
+
+/* “— DOWN */
+.down-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #f5d6db;
+    font-size: 35px;
+    cursor: pointer;
+    z-index: 999;
+    animation: moveDown 1s infinite;
+}
+
+@keyframes moveDown {
+    0% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 10px); }
+    100% { transform: translate(-50%, 0); }
+}
+
+/* «·”ﬂ‘‰ «· «‰Ì */
+.section {
+    height: 100vh;
+    background: linear-gradient(180deg, #3b0f19, #1a060a); /* »—Ã‰œÌ */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #f5d6db;
+    padding-top: 60px;
+}
+
+/* «·⁄œ«œ */
+.countdown {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.box {
+    background: #1a060a;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 32px;
+    min-width: 65px;
+    text-align: center;
+    color: #f5d6db;
+    border: 1px solid #5a1a26;
+}
+
+.label {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #d9aab2;
+}
+
+/* «·Ã„·… */
+.top-text {
+    margin-top: 80px;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+    color: #f5d6db;
+}
+
+/* «·’Ê—… */
+.bottom-image {
+    margin-top: 70px;
+    width: 300px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.8s ease;
+}
+
+.bottom-image.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* “— LOCATION */
+.location-btn {
+    margin-top: 60px;
+    padding: 12px 30px;
+    background: #f5d6db;
+    color: #3b0f19;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.location-btn:hover {
+    background: #e8bfc7;
+}
+
+/* «·ﬂ—ÌœÌ  */
+.credit {
+    margin-top: 50px;
+    font-size: 14px;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    color: #cfa3aa;
+}
+</style>
+</head>
+
+<body>
+
+<div id="home" onclick="openPage()">
+    <img src="cover.jpg">
+</div>
+
+<div id="content">
+
+    <div class="image-container">
+        <img src="top.jpg" id="mainImage">
+    </div>
+
+    <div class="down-btn" onclick="scrollDown()">DOWN</div>
+
+    <div class="section" id="nextSection">
+
+        <div class="countdown">
+            <div><div class="box" id="days">0</div><div class="label">Days</div></div>
+            <div><div class="box" id="hours">0</div><div class="label">Hours</div></div>
+            <div><div class="box" id="minutes">0</div><div class="label">Minutes</div></div>
+            <div><div class="box" id="seconds">0</div><div class="label">Seconds</div></div>
+        </div>
+
+        <div class="top-text">COUNTING DOWN TO OUR DAY</div>
+
+        <img src="bottom.png" id="bottomImage" class="bottom-image">
+
+        <a href="https://maps.app.goo.gl/sAUvdME6WpoN3tKd7" target="_blank" class="location-btn">
+            LOCATION
+        </a>
+
+        <div class="credit">
+            DESIGNED BY : AHMED KOMSAN - 20109201354
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function openPage() {
+    let home = document.getElementById("home");
+
+    home.classList.add("fade-out");
+
+    setTimeout(() => {
+        home.style.display = "none";
+
+        document.getElementById("content").style.display = "block";
+
+        setTimeout(() => {
+            document.getElementById("mainImage").classList.add("show");
+        }, 200);
+
+    }, 1000);
+}
+
+function scrollDown() {
+    document.getElementById("nextSection").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function handleScroll() {
+    const section = document.getElementById("nextSection");
+    const img = document.getElementById("bottomImage");
+
+    if (section.getBoundingClientRect().top < window.innerHeight - 100) {
+        setTimeout(() => {
+            img.classList.add("show");
+        }, 500);
+
+        window.removeEventListener("scroll", handleScroll);
+    }
+}
+
+window.addEventListener("scroll", handleScroll);
+
+/* «·⁄œ«œ */
+const targetDate = new Date("May 7, 2026 00:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    document.getElementById("days").innerText = Math.floor(diff / (1000*60*60*24));
+    document.getElementById("hours").innerText = Math.floor((diff / (1000*60*60)) % 24);
+    document.getElementById("minutes").innerText = Math.floor((diff / (1000*60)) % 60);
+    document.getElementById("seconds").innerText = Math.floor((diff / 1000) % 60);
+
+}, 1000);
+</script>
+
+</body>
+</html>
